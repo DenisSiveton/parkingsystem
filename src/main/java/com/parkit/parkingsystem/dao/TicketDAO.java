@@ -13,9 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 
-@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(
-        value="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE",
-        justification="Necessary to implement unit test")
+
 public class TicketDAO {
 
     private static final Logger logger = LogManager.getLogger("TicketDAO");

@@ -3,6 +3,9 @@ package com.parkit.parkingsystem.model;
 import java.util.Calendar;
 import java.util.Date;
 
+@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(
+        value="EI_EXPOSE_REP2",
+        justification="Time data in ticket are safe and out of reach from user")
 public class Ticket {
     private int id;
     private ParkingSpot parkingSpot;
