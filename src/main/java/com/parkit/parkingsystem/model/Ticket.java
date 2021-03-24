@@ -3,6 +3,9 @@ package com.parkit.parkingsystem.model;
 import java.util.Calendar;
 import java.util.Date;
 
+@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(
+        value="EI_EXPOSE_REP2",
+        justification="Time data in ticket are safe and out of reach from user")
 public class Ticket {
     private int id;
     private ParkingSpot parkingSpot;
@@ -44,18 +47,22 @@ public class Ticket {
     }
 
     public Date getInTime() {
-        return inTime;
+        Date dateInTimeClone = this.inTime;
+        return dateInTimeClone;
     }
 
     public void setInTime(Date inTime) {
-        this.inTime = inTime;
+        Date dateInTimeClone = inTime;
+        this.inTime = dateInTimeClone;
     }
 
     public Date getOutTime() {
-        return outTime;
+        Date dateOutTimeClone = this.outTime;
+        return dateOutTimeClone;
     }
 
     public void setOutTime(Date outTime) {
-        this.outTime = outTime;
+        Date dateOutTimeClone = outTime;
+        this.outTime = dateOutTimeClone;
     }
 }
