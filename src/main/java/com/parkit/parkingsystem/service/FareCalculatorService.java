@@ -5,7 +5,7 @@ import com.parkit.parkingsystem.model.Ticket;
 
 public class FareCalculatorService {
 
-    public void calculateFare(Ticket ticket){
+    public void calculateFare(Ticket ticket, boolean isCustomerRegular){
         if( (ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime())) ){
             throw new IllegalArgumentException("Out time provided is incorrect:"+ticket.getOutTime().toString());
         }
@@ -13,13 +13,12 @@ public class FareCalculatorService {
 
         applyFareRate(ticket, parkingTimeDuration);
 
+        checkIfCustomerIsARegular(ticket, isCustomerRegular);
+
         roundToTheHundredth(ticket);
     }
 
     public void applyFareRate(Ticket ticket, double parkingTimeDuration) {
-        //New feature implemented here : check if parking duration less or equal to 30 minutes.
-        // If so then it is free.Otherwise wwe apply the normal fare rate.
-
         //Verify that parking time duration is less than or equal to 30 minutes (0.5 hour)
         if(parkingTimeDuration * 60 <= 30) {
             ticket.setPrice(0.0);
@@ -56,5 +55,16 @@ public class FareCalculatorService {
         //Change int into double so that decimals wouldn't be lost which are the minutes.
 
         return (outMinute - inMinute)/60;
+    }
+
+    public boolean checkIfCustomerIsARegular(Ticket ticket, boolean isCustomerRegular) {
+        if (isCustomerRegular) {
+            applyRegularCustomerDiscount(ticket);
+        }
+        return isCustomerRegular;
+    }
+
+    private void applyRegularCustomerDiscount(Ticket ticket) {
+        ticket.setPrice(ticket.getPrice() * 0.95);
     }
 }
