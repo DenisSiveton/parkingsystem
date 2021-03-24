@@ -77,7 +77,7 @@ public class FareCalculatorServiceTest {
         //ARRANGE
         testInit(-60, ParkingType.BIKE);
         //ACT & ASSERT
-        assertThrows(IllegalArgumentException.class, () -> fareCalculatorService.calculateFare(ticket));
+        assertThrows(IllegalArgumentException.class, () -> fareCalculatorService.calculateFare(ticket, false));
     }
 
     @Test
@@ -168,5 +168,23 @@ public class FareCalculatorServiceTest {
         assertThrows(IllegalArgumentException.class, executable);
     }
 
+    @Test
+    public void checkIfCustomerIsARegular_whenCustomerIsNotRegular_ShouldReturnFalse(){
+        //ARRANGE
+        testInit(60, ParkingType.CAR);
+        //ACT
+        boolean result = fareCalculatorService.checkIfCustomerIsARegular(ticket, false);
+        //ASSERT
+        assertEquals(false, result);
+    }
 
+    @Test
+    public void checkIfCustomerIsARegular_whenCustomerIsRegular_ShouldReturnTrue(){
+        //ARRANGE
+        testInit(60, ParkingType.CAR);
+        //ACT
+        boolean result = fareCalculatorService.checkIfCustomerIsARegular(ticket, true);
+        //ASSERT
+        assertEquals(true, result);
+    }
 }
